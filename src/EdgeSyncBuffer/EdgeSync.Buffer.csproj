@@ -1,0 +1,57 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+
+    <!-- NuGet Package Metadata -->
+    <PackageId>EdgeSync.Buffer</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Ram Budithe</Authors>
+    <Company>Ram Budithe</Company>
+    <Product>EdgeSyncBuffer</Product>
+    <Description>
+      Offline-first time-series buffer for .NET IoT edge devices.
+      Guarantees ordered message delivery to the cloud despite connectivity
+      interruptions — using sequence numbers rather than timestamps to
+      eliminate clock-drift ordering errors. Includes disk persistence
+      for survival across process restarts.
+
+      Designed for enterprise IoT deployments in regulated industries
+      where data loss has compliance or operational consequences.
+    </Description>
+    <PackageTags>iot;edge;mqtt;offline-first;buffer;sync;dotnet;csharp;cloud;telemetry;enterprise</PackageTags>
+    <PackageProjectUrl>https://github.com/rambudithe/EdgeSyncBuffer</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/rambudithe/EdgeSyncBuffer</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
+
+    <!-- Build settings -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\EdgeSync.Buffer.xml</DocumentationFile>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <Deterministic>true</Deterministic>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+
+    <!-- Source Link for debugging experience -->
+    <ContinuousIntegrationBuild Condition="'$(CI)' == 'true'">true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+    <None Include="..\..\assets\icon.png" Pack="true" PackagePath="\" Condition="Exists('..\..\assets\icon.png')" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
+</Project>

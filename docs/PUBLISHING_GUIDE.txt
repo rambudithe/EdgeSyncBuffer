@@ -1,0 +1,177 @@
+# PUBLISHING GUIDE — EdgeSyncBuffer
+# Complete step-by-step instructions to go from these files to live on GitHub + NuGet
+
+=============================================================================
+STEP 1 — CREATE YOUR GITHUB REPO (10 minutes)
+=============================================================================
+
+1. Go to github.com → New repository
+2. Settings:
+   - Name: EdgeSyncBuffer
+   - Description: Offline-first IoT data buffer for .NET — guaranteed ordered delivery despite connectivity interruptions
+   - Public: YES (required for EB1A evidence — must be publicly visible)
+   - Initialize with README: NO (you have your own)
+   - License: MIT
+
+3. Copy the repo URL:
+   https://github.com/rambudithe/EdgeSyncBuffer
+
+=============================================================================
+STEP 2 — OPEN THE DOTNET/IOT ISSUE FIRST (5 minutes)
+=============================================================================
+
+IMPORTANT: Do this BEFORE pushing your code.
+
+1. Go to: https://github.com/dotnet/iot/issues/new
+2. Copy the issue text from: docs/GITHUB_ISSUE_TO_OPEN_FIRST.txt
+3. Submit the issue
+4. Screenshot the issue URL — this is EB1A evidence
+
+Why first? It proves the gap existed before your solution.
+Your repo then becomes the documented answer to a community problem.
+
+=============================================================================
+STEP 3 — PUSH YOUR CODE TO GITHUB (5 minutes)
+=============================================================================
+
+Open terminal in the EdgeSyncBuffer folder and run:
+
+git init
+git add .
+git commit -m "Initial release: EdgeSyncBuffer v1.0.0
+
+Offline-first IoT telemetry buffer for .NET with:
+- Guaranteed sequence-number-ordered delivery (not timestamp-ordered)
+- JSON Lines disk persistence across process restarts
+- Configurable dead-letter alerting
+- Zero external dependencies beyond System.Text.Json"
+
+git remote add origin https://github.com/rambudithe/EdgeSyncBuffer.git
+git branch -M main
+git push -u origin main
+
+=============================================================================
+STEP 4 — CREATE NUGET ACCOUNT AND API KEY (10 minutes)
+=============================================================================
+
+1. Go to nuget.org → Register
+   - Use your personal email (same as GitHub)
+   - Username: rambudithe
+
+2. After login → Account Settings → API Keys → Create
+   - Key Name: GitHub Actions
+   - Glob pattern: EdgeSync.*
+   - Select: Push new packages and package versions
+   - Expiration: 365 days
+   - Click: Create
+
+3. COPY THE KEY — you only see it once
+
+4. Add to GitHub repo:
+   - GitHub repo → Settings → Secrets and variables → Actions → New secret
+   - Name: NUGET_API_KEY
+   - Value: [paste your NuGet API key]
+
+=============================================================================
+STEP 5 — CREATE YOUR FIRST RELEASE (triggers NuGet publish) (5 minutes)
+=============================================================================
+
+In terminal:
+
+git tag v1.0.0
+git push origin v1.0.0
+
+This triggers the GitHub Actions CI workflow which:
+→ Runs all tests
+→ Packs the NuGet package
+→ Publishes to nuget.org automatically
+→ Creates a GitHub Release with release notes
+
+Wait 5–10 minutes then check:
+https://www.nuget.org/packages/EdgeSync.Buffer
+
+=============================================================================
+STEP 6 — ADD REPO DETAILS FOR DISCOVERABILITY (5 minutes)
+=============================================================================
+
+In your GitHub repo, click the gear icon next to "About":
+
+Description:
+Offline-first IoT data buffer for .NET — guaranteed ordered cloud delivery
+
+Website:
+https://www.nuget.org/packages/EdgeSync.Buffer
+
+Topics (add all of these):
+iot, dotnet, csharp, edge-computing, offline-first, mqtt, telemetry,
+enterprise-iot, buffer, cloud-sync, nuget, net8
+
+=============================================================================
+STEP 7 — SHARE TO DRIVE STARS (same day as launch)
+=============================================================================
+
+Post to these communities within 24 hours of publishing:
+
+Reddit:
+- r/dotnet — "I built an offline-first IoT buffer for .NET that solves silent message loss"
+- r/IOT — "How we solved ordered message delivery in enterprise IoT .NET deployments"
+- r/csharp — "Missing from .NET IoT: a proper offline-first buffer with sequence ordering"
+
+LinkedIn:
+- Post your pre-written article linking to the repo
+
+Stack Overflow:
+- Search "mqtt message loss reconnect c#" — answer those questions linking to your repo
+- Search "iot offline buffer dotnet" — same
+
+Microsoft Tech Community:
+- Post in .NET and Azure IoT forums
+
+=============================================================================
+STEP 8 — EVIDENCE FILE (for EB1A petition)
+=============================================================================
+
+Screenshot and save these items regularly:
+
+Week 1:
+□ GitHub repo URL with your name visible
+□ dotnet/iot issue you opened + upvotes
+□ NuGet package page showing: EdgeSync.Buffer by Ram Budithe
+□ First star notification email
+
+Monthly:
+□ NuGet download count
+□ GitHub star count
+□ GitHub fork count
+□ Any issues opened by other users
+□ Any PRs submitted by contributors
+□ Any blog posts or articles referencing your package
+
+The download count is the most powerful EB1A evidence —
+it shows real-world adoption by professional developers worldwide.
+
+=============================================================================
+STEP 9 — WRITE YOUR DZONE ARTICLE (within 1 week)
+=============================================================================
+
+Title: "Offline-First IoT in .NET: How to Stop Losing Data When Connectivity Fails"
+
+Structure:
+1. The problem (silent message loss in MQTTnet)
+2. Why timestamp ordering fails (clock drift)
+3. The sequence-number solution
+4. Code walkthrough (link to GitHub)
+5. NuGet installation instructions
+6. Production lessons learned
+
+Submit to: dzone.com/write-for-dzone
+Also submit to: infoq.com (longer, more detailed version)
+
+The article + GitHub repo + NuGet package = three mutually reinforcing
+pieces of evidence for your original contributions criterion.
+
+=============================================================================
+TOTAL TIME TO PUBLISHED: ~35 minutes
+TOTAL COST: $0
+EB1A CRITERIA COVERED: Original Contributions + Published Work + Judging (via PR reviews)
+=============================================================================
