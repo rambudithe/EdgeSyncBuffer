@@ -277,6 +277,7 @@ public sealed class EdgeSyncBuffer<T> : IAsyncDisposable where T : ITimestamped
         return Task.CompletedTask;
     }
 
+    /// <inheritdoc/>
     public async ValueTask DisposeAsync()
     {
         if (_disposed) return;

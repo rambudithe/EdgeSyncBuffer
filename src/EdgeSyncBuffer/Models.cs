@@ -114,9 +114,13 @@ public record BufferStats(
 /// </summary>
 public interface IEdgeSyncLogger
 {
+    /// <summary>Logs a debug-level message.</summary>
     void LogDebug(string message);
+    /// <summary>Logs an informational message.</summary>
     void LogInformation(string message);
+    /// <summary>Logs a warning message.</summary>
     void LogWarning(string message);
+    /// <summary>Logs an error message.</summary>
     void LogError(string message);
 }
 
@@ -125,12 +129,16 @@ public interface IEdgeSyncLogger
 /// </summary>
 public sealed class ConsoleEdgeSyncLogger : IEdgeSyncLogger
 {
+    /// <inheritdoc/>
     public void LogDebug(string message) =>
         Console.WriteLine($"[EdgeSync DBG] {DateTime.UtcNow:HH:mm:ss} {message}");
+    /// <inheritdoc/>
     public void LogInformation(string message) =>
         Console.WriteLine($"[EdgeSync INF] {DateTime.UtcNow:HH:mm:ss} {message}");
+    /// <inheritdoc/>
     public void LogWarning(string message) =>
         Console.WriteLine($"[EdgeSync WRN] {DateTime.UtcNow:HH:mm:ss} {message}");
+    /// <inheritdoc/>
     public void LogError(string message) =>
         Console.WriteLine($"[EdgeSync ERR] {DateTime.UtcNow:HH:mm:ss} {message}");
 }
