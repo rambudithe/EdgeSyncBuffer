@@ -9,7 +9,7 @@ namespace EdgeSync;
 public interface ITimestamped
 {
     /// <summary>UTC time the event occurred at the device.</summary>
-    DateTime Timestamp { get; }
+    DateTimeOffset Timestamp { get; }
 }
 
 // ── Internal entry wrapper ──────────────────────────────────────────────────
@@ -21,11 +21,11 @@ public interface ITimestamped
 /// Why not timestamps? Clock drift at edge devices during connectivity outages
 /// is common. A device that reconnects after an NTP correction may have
 /// timestamps that appear out of sequence. Sequence numbers are assigned
-/// server-side at write time and are immune to clock drift.
+/// locally at buffer-write time and are immune to clock drift.
 /// </summary>
 public record BufferedEntry<T>(
     T Data,
-    DateTime BufferedAt,
+    DateTimeOffset BufferedAt,
     long SequenceNumber);
 
 // ── Configuration ───────────────────────────────────────────────────────────
@@ -94,11 +94,11 @@ public record BufferStats(
     long TotalWritten,
     long TotalSynced,
     long TotalEvicted,
-    int CurrentPending)
+    long CurrentPending)
 {
     /// <summary>Percentage of written entries successfully synced.</summary>
     public double SyncRate => TotalWritten == 0 ? 0 :
-        Math.Round((double)TotalSynced / TotalWritten * 100, 1);
+        Math.Min(Math.Round((double)TotalSynced / TotalWritten * 100, 1), 100.0);
 
     /// <summary>Percentage of written entries lost due to eviction.</summary>
     public double EvictionRate => TotalWritten == 0 ? 0 :
