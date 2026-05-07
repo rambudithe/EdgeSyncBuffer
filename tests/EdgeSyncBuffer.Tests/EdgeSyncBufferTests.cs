@@ -8,7 +8,7 @@ namespace EdgeSyncBuffer.Tests;
 public record CameraEvent(
     string CameraId,
     string EventType,
-    DateTime Timestamp,
+    DateTimeOffset Timestamp,
     float ConfidenceScore) : ITimestamped;
 
 // ── Test helpers ────────────────────────────────────────────────────────────
@@ -16,7 +16,7 @@ public record CameraEvent(
 public static class TestHelpers
 {
     public static CameraEvent CreateEvent(string id = "CAM001") =>
-        new(id, "MotionDetected", DateTime.UtcNow, 0.95f);
+        new(id, "MotionDetected", DateTimeOffset.UtcNow, 0.95f);
 
     public static Task<SyncResult> SuccessUpload(
         IEnumerable<CameraEvent> _, CancellationToken __) =>
@@ -94,7 +94,7 @@ public class EdgeSyncBufferTests
         // Act — write events from multiple "devices" interleaved
         var tasks = Enumerable.Range(0, 100)
             .Select(i => buffer.WriteAsync(
-                new CameraEvent($"CAM{i:000}", "Motion", DateTime.UtcNow, 0.9f)));
+                new CameraEvent($"CAM{i:000}", "Motion", DateTimeOffset.UtcNow, 0.9f)));
         await Task.WhenAll(tasks);
 
         await buffer.OnConnectivityRestoredAsync();
