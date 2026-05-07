@@ -11,6 +11,7 @@ env:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
   DOTNET_NOLOGO: true
   NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   build-and-test:
@@ -52,6 +53,8 @@ jobs:
     needs: build-and-test
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
 
     steps:
     - uses: actions/checkout@v4
